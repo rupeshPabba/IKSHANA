@@ -1,10 +1,37 @@
+#tinker cad
 # Importing needed libraries
+from playsound import playsound
 from gtts import gTTS
 import numpy as np
 import cv2
 import time
 import os
+import imutils
+import subprocess
 import pyglet
+import random
+
+
+def name_generator():
+    ran = random.randint(1,5000)
+    ran = str(ran)
+    return ran
+
+
+def TalkBack(case_ans):
+    print("in ...................................")
+    tts = gTTS(text=case_ans + "is detected",lang="en")
+    new_name = name_generator()
+    new_name= r"C:\\Users\dell\\OneDrive\Desktop\\RUPESH PABBA\\YOLO-3-OpenCV\\yolov3(part1)\\audio\\"+new_name+".mp3"
+    tts.save(new_name)
+    try:  
+        print("saving...............................")
+        playsound(new_name)
+        print("saying................................")
+        
+        #os.remove(new_name) 
+    except:
+        print("i cant")
 
 
 camera = cv2.VideoCapture(0)
@@ -161,28 +188,31 @@ while True:
             text_box_current = '{}: {:.4f}'.format(labels[int(class_numbers[i])],
                                                    confidences[i])
 
-            cv2.putText(frame, texxt_box_current, (x_min, y_min - 5),
+            cv2.putText(frame, text_box_current, (x_min, y_min - 5),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, colour_box_current, 2)
 
             texts.append(labels[class_numbers[i]])
 
             print(texts)
             x = texts
-            print(len(x)!=0)
+            #print(len(x)!=0)
         #try:
-            if len(x)!=0:
-                description = ','.join(texts)
-                tts = gTTS(text=x, lang='en')
-                filename = "tts.mp3"
-                tts.save(filename)
-                audio = pyglet.media.load(filename, streaming=False)
-                pyglet.options['audio'] = (
-                 'openal', 'pulse', 'directsound', 'silent')
-                audio.play()
-                time.sleep(audio.duration)
+            #for x in x:
+            # if x:
+            #     description = ','.join(x)
+            #     tts = gTTS(text=x, lang='en')
+            #     filename = "tts.mp3"
+            #     tts.save(filename)
+            #     audio = pyglet.media.load(filename, streaming=False)
+            #     pyglet.options['audio'] = (
+            #     'openal', 'pulse', 'directsound', 'silent')
+            #     audio.play()
+            #     time.sleep(audio.duration)
 
         #except:
-           # print("not wroking")
+        #    print("not wroking")
+        for i in x:
+            TalkBack(i)
         
 
     

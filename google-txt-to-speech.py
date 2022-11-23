@@ -3,11 +3,14 @@ import os
 import pyglet
 import time
 
-filename="hello.mp3"
-tts=gTTS(text="hey sriya",lang="en")
-tts.save(filename)
+x=["person","dog","cell phone","hello"]
 
-pyglet.options['audio']=('openal','pulse','directsound','silent')
-audio=pyglet.media.load(filename,streaming=False)
-audio.play()
-time.sleep(audio.duration)
+for i in x:
+    filename="sound.mp3"
+    tts=gTTS(text=i,lang="en")
+    tts.save(filename)
+
+    pyglet.options['audio']=('openal','pulse','directsound','silent')
+    audio=pyglet.media.load(filename,streaming=False)
+    audio.play()
+    time.sleep(audio.duration)
