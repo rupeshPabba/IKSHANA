@@ -1,4 +1,3 @@
-#tinker cad
 # Importing needed libraries
 from playsound import playsound
 from gtts import gTTS
@@ -22,14 +21,14 @@ def TalkBack(case_ans):
     print("in ...................................")
     tts = gTTS(text=case_ans + "is detected",lang="en")
     new_name = name_generator()
-    new_name= r"C:\\Users\dell\\OneDrive\Desktop\\RUPESH PABBA\\YOLO-3-OpenCV\\yolov3(part1)\\audio\\"+new_name+".mp3"
+    new_name=  new_name+".mp3"
     tts.save(new_name)
     try:  
         print("saving...............................")
         playsound(new_name)
         print("saying................................")
         
-        #os.remove(new_name) 
+        os.remove(new_name) 
     except:
         print("i cant")
 
