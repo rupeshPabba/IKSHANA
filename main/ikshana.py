@@ -23,14 +23,14 @@ def TalkBack(case_ans):
     new_name = name_generator()
     new_name=  new_name+".mp3"
     tts.save(new_name)
-    try:  
-        print("saving...............................")
-        playsound(new_name)
-        print("saying................................")
+    #try:  
+    print("saving...............................")
+    playsound(new_name)
+    print("saying................................")
         
-        os.remove(new_name) 
-    except:
-        print("i cant")
+    os.remove(new_name) 
+    """except:
+        print("i cant")"""
 
 
 camera = cv2.VideoCapture(0)
