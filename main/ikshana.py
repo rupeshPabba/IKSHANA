@@ -5,9 +5,6 @@ import numpy as np
 import cv2
 import time
 import os
-import imutils
-import subprocess
-import pyglet
 import random
 
 
@@ -43,8 +40,8 @@ with open(r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\yolo-coco-
     labels = [line.strip() for line in f]
 
 
-network = cv2.dnn.readNetFromDarknet(r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\yolo-coco-data\yolov3.cfg',
-                                     r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\yolo-coco-data\yolov3.weights')
+network = cv2.dnn.readNetFromDarknet(r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\yolo-coco-data\yolov4.cfg',
+                                     r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\yolo-coco-data\yolov4.weights')
 
 layers_names_all = network.getLayerNames()
 
@@ -194,22 +191,7 @@ while True:
 
             print(texts)
             x = texts
-            #print(len(x)!=0)
-        #try:
-            #for x in x:
-            # if x:
-            #     description = ','.join(x)
-            #     tts = gTTS(text=x, lang='en')
-            #     filename = "tts.mp3"
-            #     tts.save(filename)
-            #     audio = pyglet.media.load(filename, streaming=False)
-            #     pyglet.options['audio'] = (
-            #     'openal', 'pulse', 'directsound', 'silent')
-            #     audio.play()
-            #     time.sleep(audio.duration)
-
-        #except:
-        #    print("not wroking")
+           
         for i in x:
             TalkBack(i)
         
@@ -228,4 +210,3 @@ while True:
 
 camera.release()
 cv2.destroyAllWindows()
-os.remove('tts.mp3')
