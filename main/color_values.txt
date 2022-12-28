@@ -1,0 +1,21 @@
+              yellow
+min_blue=28
+min_green=187
+min_red=184
+max_blue=101
+max_green=255
+max_red=255
+              BLUE
+min_blue=94
+min_green=208
+min_red=130
+max_blue=132
+max_green=255
+max_red=190
+              RED
+min_blue=0
+min_green=210
+min_red=85
+max_blue=208
+max_green=255
+max_red=255

@@ -35,13 +35,12 @@ camera = cv2.VideoCapture(0)
 h, w = None, None
 
 
-with open(r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\yolo-coco-data/coco.names') as f:
-    print(type(f))
+with open(r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\main\yolo-coco-data\coco.names') as f:
     labels = [line.strip() for line in f]
 
 
-network = cv2.dnn.readNetFromDarknet(r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\yolo-coco-data\yolov4.cfg',
-                                     r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\yolo-coco-data\yolov4.weights')
+network = cv2.dnn.readNetFromDarknet(r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\main\yolo-coco-data\yolov4.cfg',
+                                     r'C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\main\yolo-coco-data\yolov4.weights')
 
 layers_names_all = network.getLayerNames()
 
@@ -55,58 +54,25 @@ threshold = 0.3
 
 colours = np.random.randint(0, 255, size=(len(labels), 3), dtype='uint8')
 
-# # Check point
-# print()
-# print(type(colours))  # <class 'numpy.ndarray'>
-# print(colours.shape)  # (80, 3)
-# print(colours[0])  # [172  10 127]
-
-"""
-End of:
-Loading YOLO v3 network
-"""
 
 
-"""
-Start of:
-Reading frames in the loop
-"""
+
+
 
 # Defining loop for catching frames
 while True:
     # Capturing frame-by-frame from camera
     _, frame = camera.read()
 
-    # Getting spatial dimensions of the frame
-    # we do it only once from the very beginning
-    # all other frames have the same dimension
+   
     if w is None or h is None:
         # Slicing from tuple only first two elements
         h, w = frame.shape[:2]
-
-    """
-    Start of:
-    Getting blob from current frame
-    """
-
-    # Getting blob from current frame
-    # The 'cv2.dnn.blobFromImage' function returns 4-dimensional blob from current
-    # frame after mean subtraction, normalizing, and RB channels swapping
-    # Resulted shape has number of frames, number of channels, width and height
-    # E.G.:
-    # blob = cv2.dnn.blobFromImage(image, scalefactor=1.0, size, mean, swapRB=True)
+ 
     blob = cv2.dnn.blobFromImage(frame, 1 / 255.0, (416, 416),
                                  swapRB=True, crop=False)
 
-    """
-    End of:
-    Getting blob from current frame
-    """
-
-    """
-    Start of:
-    Implementing Forward pass
-    """
+    
 
     # Implementing forward pass with our blob and only through output layers
     # Calculating at the same time, needed time for forward pass
@@ -118,16 +84,7 @@ while True:
     # Showing spent time for single current frame
     print('Current frame took {:.5f} seconds'.format(end - start))
 
-    """
-    End of:
-    Implementing Forward pass
-    """
-
-    """
-    Start of:
-    Getting bounding boxes
-    """
-
+    
     # Preparing lists for detected bounding boxes,
     # obtained confidences and class's number
     bounding_boxes = []
@@ -145,11 +102,7 @@ while True:
             # Getting value of probability for defined class
             confidence_current = scores[class_current]
 
-            # # Check point
-            # # Every 'detected_objects' numpy array has first 4 numbers with
-            # # bounding box coordinates and rest 80 with probabilities
-            # # for every class
-            # print(detected_objects.shape)  # (85,)
+           
 
             # Eliminating weak predictions with minimum probability
             if confidence_current > probability_minimum:
@@ -190,17 +143,21 @@ while True:
             texts.append(labels[class_numbers[i]])
 
             print(texts)
-            x = texts
+            p = texts[0]
+        # with open(r"C:\Users\dell\OneDrive\Desktop\RUPESH PABBA\YOLO-3-OpenCV\main\detected_objects.txt","a") as f:
+        #     f.write(p)
+            print("completed")   
+        break
            
-        for i in x:
-            TalkBack(i)
+        # for i in x:
+        #     TalkBack(i)
         
 
     
 
     
     cv2.namedWindow('YOLO v3 Real Time Detections', cv2.WINDOW_NORMAL)
-    cv2.imshow('YOLO v3 Real Time Detections', frame)
+    #cv2.imshow('YOLO v3 Real Time Detections', frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
